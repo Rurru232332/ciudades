@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    justify-content: space-between;
+}
+h1{
+    font-weight: 100;
+    font-size: 50px;
+}
+.logo{
+    height: 50px;
+    padding: 10px;
+}
+
+#tabs{
+    display: flex;
+    align-items: flex-end;
+}
+
+#tabs a{
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}

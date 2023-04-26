@@ -1,0 +1,21 @@
+.hidden{
+    display: none;
+}
+.card{
+    margin: 25px;
+}
+.minimizeButton{
+    width: 20px;
+    height: 20px;
+    margin: 3px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cardHeader{
+    display: flex;
+    border-bottom: 1px solid black;
+}
+.cardTitle{
+    width: 100%;
+    text-align: center;
+}

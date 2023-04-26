@@ -1,0 +1,17 @@
+#search_div{
+    margin: 20px;
+    display: flex;
+}
+
+#search_button{
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-left: 15px;
+    width: 10%;
+}
+
+#input_zip{
+    height: 35px;
+    width: 90%;
+}

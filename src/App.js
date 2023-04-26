@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import MainLayout from './pages/MainLayout/MainLayout';
+import React from 'react';
+import { ThemeProvider } from './providers/ThemeProvider';
+import { HistoryProvider } from './providers/HistoryProvider';
 import './App.css';
+import { LangProvider } from './providers/LangProvider';
+import { AppRouter } from './AppRouter';
 
 function App() {
+
+  const historyProvider = (<HistoryProvider children={<AppRouter/>}></HistoryProvider>);
+  const langProvider = (<LangProvider children={historyProvider}/>);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider children={langProvider}>
+    </ThemeProvider>
   );
 }
 
