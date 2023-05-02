@@ -1,13 +1,22 @@
 {
     "spanish":{
-        "title": "Ciudades",
-        "logoAlt": "logo",
-        "search": "Buscar",
-        "history": "Historial",
-        "politic_info": "Información política",
-        "not_a_number": "El código postal debe ser un número",
+        "city": "Ciudad",
+        "community": "Comunidad",
         "empty_zip": "Introduce un código postal",
-        "zip_error": "Se ha producido un error. Inténtelo de nuevo más tarde",
-        "five_char_zip": "El código postal debe tener 5 dígitos"
+        "five_char_zip": "El código postal debe tener 5 dígitos",
+        "flag_of": "Bandera de ",
+        "geo_info": "Información geográfica",
+        "history": "Historial",
+        "lat": "Latitud",
+        "lng": "Longitud",
+        "logoAlt": "logo",
+        "no_flag": "Sin bandera",
+        "no_results": "No hay resultados",
+        "not_a_number": "El código postal debe ser un número",
+        "politic_info": "Información política",
+        "search": "Buscar",
+        "title": "Ciudades",
+        "weather_info": "Información climática",
+        "zip_error": "Se ha producido un error. Inténtelo de nuevo más tarde"
     }
 }

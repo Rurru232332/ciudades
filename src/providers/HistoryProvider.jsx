@@ -12,7 +12,7 @@ export function useHistoryContext(){
 export function useAddSearchContext(){
     return useContext(AddSearchContext);
 }
-
+ 
 export function useClearHistoryContext(){
     return useContext(ClearHistoryContext);
 }
