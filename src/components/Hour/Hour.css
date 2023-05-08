@@ -1,0 +1,16 @@
+.vertical{
+    position: relative;
+    transform: translateX(-100%) rotate(90deg);
+    transform-origin: left;
+    width: 190px;
+    height: 15px;
+    left: 202px;
+}
+.hour{
+    height: 15px;
+    width: 15px;
+    margin-left: 2px;
+}
+#minMaxTemp_container{
+    display: flex;
+}

@@ -8,12 +8,23 @@ import { AppRouter } from './AppRouter';
 
 function App() {
 
-  const historyProvider = (<HistoryProvider children={<AppRouter/>}></HistoryProvider>);
-  const langProvider = (<LangProvider children={historyProvider}/>);
+  //const historyProvider = (<HistoryProvider children={<AppRouter/>}></HistoryProvider>);
+  //const langProvider = (<LangProvider children={historyProvider}/>);
 
+  /*
   return (
     <ThemeProvider children={langProvider}>
     </ThemeProvider>
+  );*/
+    
+  return (
+    <HistoryProvider>
+      <LangProvider>
+        <ThemeProvider>
+          <AppRouter />
+        </ThemeProvider>
+      </LangProvider>
+    </HistoryProvider>
   );
 }
 

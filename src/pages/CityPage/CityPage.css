@@ -44,3 +44,12 @@
     font-style: oblique;
     padding-left: 25px;
 }
+
+#cardContent_weatherInfo{
+    -webkit-overflow-scrolling: touch;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 250px;
+    margin-left: 30px;
+    margin-top: 20px;
+}

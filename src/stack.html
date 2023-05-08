@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+      function startCountdown(timerId, minutesId, secondsId) {
+      var countDownDate = new Date().getTime() + 9000; // 15 mins in milliseconds
+      
+      var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById(minutesId).innerHTML = minutes;
+        document.getElementById(secondsId).innerHTML = seconds;
+        console.log(distance);
+        
+        if (distance < 1000) {
+          clearInterval(x);
+          document.getElementById(timerId).innerHTML = "EXPIRED";
+          document.getElementById(minutesId).innerHTML = "00";
+          document.getElementById(secondsId).innerHTML = "00";
+          setTimeout(function() {
+            startCountdown(timerId, minutesId, secondsId);
+          }, 999);
+        }
+      }, 1000);
+    }
+  </script>
+</head>
+<body>
+  <p id="countdown-timer1">A</p>
+  <p id="minutes-1">B</p>
+  <p id="seconds-1">C</p>
+  <button onclick="startCountdown('countdown-timer1', 'minutes-1', 'seconds-1');">Cuenta atrás</button>
+</body>
+</html>

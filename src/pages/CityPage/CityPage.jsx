@@ -8,11 +8,14 @@ import Card from "../../components/Card/Card";
 import useZip from "../../hooks/useZip";
 import values from "../../conf/values.json";
 import useWeather from "../../hooks/useWeather";
+import { useAddSearchContext, useHistoryContext } from "../../providers/HistoryProvider";
+import Graphic from "../../components/Graphic/Graphic";
 
 const CityPage = () => {
 
     const lang = useLangContext();
     const theme = useThemeContext();
+    const addSearch = useAddSearchContext();
     
     const [info, fetchInfo] = useZip();
     const [weather, fetchWeather] = useWeather();
@@ -24,12 +27,13 @@ const CityPage = () => {
     const [flagAlt, setFlagAlt] = useState();
 
     useEffect(() => {
+        //console.log(zip);
         try{
             let errorText = document.getElementById("error_text");
             //let zip = document.getElementById("input_zip").value;
 
             if (zip == null){
-                console.log(info);
+                //console.log(info);
                 errorText.textContent = lang.zip_error;
             }
             else if(zip == ""){
@@ -42,8 +46,9 @@ const CityPage = () => {
                 errorText.textContent = lang.five_char_zip;
             }
             else{
+                addSearch(zip); //add the zip to the history
                 if(info.length != 0){
-                    console.log(info);
+                    //console.log(info);
                     let stateAbbr = info.places[0]["state abbreviation"];
                     let flag = "";
                     let flagAlt = lang.flag_of;
@@ -163,11 +168,14 @@ const CityPage = () => {
                     timeTemp[i] = {"timeWeather": time[i], "tempWeather": temperature[i]};
                 }
 
+                /*
                 let weatherCardContent = <>
                     {timeTemp.map((item, index) => {
                         return <p key={"weather" + index}>Hora: {item.timeWeather} Temperatura: {item.tempWeather}</p>
                     })}
-                </>
+                </>*/
+
+                let weatherCardContent = <Graphic data={timeTemp}></Graphic>
 
                 let cardPoliticInfo =
                 <div id="politicInfoContainer">
@@ -190,7 +198,7 @@ const CityPage = () => {
                     <Card id="latLng" title={lang.geo_info} children={cardLatLng}/>
                 </>)
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         }
         fetchWeatherData();
@@ -224,7 +232,9 @@ const CityPage = () => {
     );
 
     return (
-        <MainLayout children={content} id="politicInfo"/>
+        <MainLayout id="politicInfo">
+            {content}
+        </MainLayout>
     );
 }
 

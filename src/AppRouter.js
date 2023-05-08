@@ -7,6 +7,10 @@ export const AppRouter = () => {
         <Router>
             <Routes>
                 <Route
+                    path="/"
+                    element={<CityPage/>}
+                />
+                <Route
                     path="/search"
                     element={<CityPage/>}
                 />
