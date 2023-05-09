@@ -5,6 +5,8 @@
     width: 190px;
     height: 15px;
     left: 202px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
 }
 .hour{
     height: 15px;
@@ -13,4 +15,7 @@
 }
 #minMaxTemp_container{
     display: flex;
+}
+.small-margin-left{
+    margin-left: 10px;
 }

@@ -15,8 +15,8 @@
 
 #weather_container{
     -webkit-overflow-scrolling: touch;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 #temperature{
     display: flex;
@@ -25,5 +25,5 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 60px;
+    padding-right: 10px;
 }

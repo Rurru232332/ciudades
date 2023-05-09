@@ -13,7 +13,7 @@ const Hour = (props) => {
 
     return(
     <div className='hour'>
-        <div className="vertical" style={style}>{hour}({temperature})</div>
+        <div className="vertical" style={style}>{hour}<span className="bold small-margin-left">({temperature})</span></div>
     </div>
     );
 }

@@ -17,14 +17,16 @@ const CityPage = () => {
     const theme = useThemeContext();
     const addSearch = useAddSearchContext();
     
-    const [info, fetchInfo] = useZip();
-    const [weather, fetchWeather] = useWeather();
+    const [info, fetchInfo, weather] = useZip();
+    const [cityData, setCityData] = useState([]);
+    const [weatherData, setWeatherData] = useState([]);
     const [zip, setZip] = useState(values.defaultzip);
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
     const [cardList, setCardList] = useState();
     const [flagRoute, setFlagRoute] = useState();
     const [flagAlt, setFlagAlt] = useState();
+    //const [weather, setWeather] = useState({});
 
     useEffect(() => {
         //console.log(zip);
@@ -47,9 +49,9 @@ const CityPage = () => {
             }
             else{
                 addSearch(zip); //add the zip to the history
-                if(info.length != 0){
+                if(cityData.length != 0){
                     //console.log(info);
-                    let stateAbbr = info.places[0]["state abbreviation"];
+                    let stateAbbr = cityData.places[0]["state abbreviation"];
                     let flag = "";
                     let flagAlt = lang.flag_of;
 
@@ -138,76 +140,86 @@ const CityPage = () => {
 
                     setFlagRoute("/images/flags/" + flag);
                     setFlagAlt(flagAlt);
-                    let lat = info.places[0]['latitude'];
-                    let lng = info.places[0]['longitude'];
+                    let lat = cityData.places[0]['latitude'];
+                    let lng = cityData.places[0]['longitude'];
 
                     setLat(lat);
                     setLng(lng);
+                    console.log("ESTA WEAAAAAA");
+                    console.log(weatherData);
+                    const time = weatherData.hourly.time;
+                    const temperature = weatherData.hourly.temperature_2m;
+
+                    var timeTemp = [];
+
+                    for(let i = 0; i < time.length; i++){
+                        timeTemp[i] = {"timeWeather": time[i], "tempWeather": temperature[i]};
+                    }
+
+                    /*
+                    let weatherCardContent = <>
+                        {timeTemp.map((item, index) => {
+                            return <p key={"weather" + index}>Hora: {item.timeWeather} Temperatura: {item.tempWeather}</p>
+                        })}
+                    </>*/
+
+                    //let weatherCardContent = <Graphic data={timeTemp}></Graphic>
+                    
+                    let weatherCardContent = <div>{
+                            timeTemp.map((item, index) => {
+                                return <p id={"demo_" + index}>{item.tempWeather}</p>
+                            })
+                        }</div>
+                    //console.log(lat);
+                    //console.log(weatherCardContent);
+                    console.log(cityData);
+                    let cardPoliticInfo =
+                    <div id="politicInfoContainer">
+                        <img src={flagRoute} width="40px" alt={flagAlt} className="flag"/>
+                        <div id="city_community_container">
+                            <p><span className="bold">{lang.city}: </span>{cityData.places[0]["place name"]}</p>
+                            <p><span className="bold">{lang.community}: </span>{cityData.places[0]["state"]}</p>
+                        </div>
+                    </div>
+
+                    let cardLatLng = 
+                    <div id="lat_lng_container">
+                        <p><span className="bold">{lang.lat}: </span>{lat}</p>
+                        <p><span className="bold">{lang.lng}: </span>{lng}</p>
+                    </div>
+
+                    setCardList(<>
+                        <Card id="politicInfo" title={lang.politic_info} children={cardPoliticInfo}/>
+                        <Card id="weatherInfo" title={lang.weather_info} children={weatherCardContent}/>
+                        <Card id="latLng" title={lang.geo_info} children={cardLatLng}/>
+                    </>)
                 }
                 else{
                     setCardList(<p className="no_results">{lang.no_results}</p>);
                 }
-                
+            
             }
         }
         catch(ex){
+            console.log(ex);
             setCardList(<p className="no_results">{lang.no_results}</p>);
         }
-    }, [info]);
-
+    }, [cityData]);
+/*
     useEffect(() => {
         async function fetchWeatherData() {
-            try {
-                await fetchWeather(lat, lng);
-                const time = weather.hourly.time;
-                const temperature = weather.hourly.temperature_2m;
-
-                var timeTemp = [];
-
-                for(let i = 0; i < time.length; i++){
-                    timeTemp[i] = {"timeWeather": time[i], "tempWeather": temperature[i]};
-                }
-
-                /*
-                let weatherCardContent = <>
-                    {timeTemp.map((item, index) => {
-                        return <p key={"weather" + index}>Hora: {item.timeWeather} Temperatura: {item.tempWeather}</p>
-                    })}
-                </>*/
-
-                let weatherCardContent = <Graphic data={timeTemp}></Graphic>
-
-                let cardPoliticInfo =
-                <div id="politicInfoContainer">
-                    <img src={flagRoute} width="40px" alt={flagAlt} className="flag"/>
-                    <div id="city_community_container">
-                        <p><span className="bold">{lang.city}: </span>{info.places[0]["place name"]}</p>
-                        <p><span className="bold">{lang.community}: </span>{info.places[0]["state"]}</p>
-                    </div>
-                </div>
-
-                let cardLatLng = 
-                <div id="lat_lng_container">
-                    <p><span className="bold">{lang.lat}: </span>{lat}</p>
-                    <p><span className="bold">{lang.lng}: </span>{lng}</p>
-                </div>
-
-                setCardList(<>
-                    <Card id="politicInfo" title={lang.politic_info} children={cardPoliticInfo}/>
-                    <Card id="weatherInfo" title={lang.weather_info} children={weatherCardContent}/>
-                    <Card id="latLng" title={lang.geo_info} children={cardLatLng}/>
-                </>)
-            } catch (error) {
-                //console.log(error);
-            }
+            const weatherData = await useWeather(lat, lng);
+            setWeather(weatherData);
         }
         fetchWeatherData();
-    }, [lat, lng, info, zip]);
+    }, [lat, lng, info, zip]);*/
     
     const handleOnClick = async () => {
         const zipValue = document.getElementById("input_zip").value;
         setZip(zipValue);
-        await fetchInfo(zipValue);
+        const[info, weather] = await fetchInfo(zipValue);
+        setCityData(info);
+        setWeatherData(weather);
     };
     
     const error_style = {

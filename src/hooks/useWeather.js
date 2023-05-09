@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-function useWeather(){
+const useWeather = () => {
+  const [weather, setWeather] = useState({});
 
-    const [weather, setWeather] = useState([]);
-
-    const fetchWeather = async (lat, lng) => {
+  const fetchWeather = async (lat, lng) => {
+    try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                setWeather(data);
-            })
-            .catch(error => console.log(error));
+        console.log(url);
+        const response = await fetch(url);
+        setWeather(response.data);
+    } catch (error) {
+        console.error(error);
     }
-    
-    return [weather, fetchWeather];
-}
+    return weather;
+  };
+
+  return [weather, fetchWeather];
+};
 
 export default useWeather;
